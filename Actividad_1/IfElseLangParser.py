@@ -10,16 +10,16 @@ else:
 
 def serializedATN():
     return [
-        4,1,15,62,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,17,62,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,1,0,4,0,16,8,0,11,0,12,0,17,1,0,1,0,1,1,1,1,3,1,24,8,1,1,2,1,2,
         1,2,1,2,1,2,1,3,1,3,1,3,1,3,1,3,1,3,5,3,37,8,3,10,3,12,3,40,9,3,
         1,3,1,3,1,3,1,3,5,3,46,8,3,10,3,12,3,49,9,3,1,3,3,3,52,8,3,1,4,1,
-        4,1,4,1,4,1,5,1,5,1,6,1,6,1,6,0,0,7,0,2,4,6,8,10,12,0,2,1,0,13,14,
-        1,0,9,12,59,0,15,1,0,0,0,2,23,1,0,0,0,4,25,1,0,0,0,6,30,1,0,0,0,
+        4,1,4,1,4,1,5,1,5,1,6,1,6,1,6,0,0,7,0,2,4,6,8,10,12,0,2,1,0,15,16,
+        1,0,9,14,59,0,15,1,0,0,0,2,23,1,0,0,0,4,25,1,0,0,0,6,30,1,0,0,0,
         8,53,1,0,0,0,10,57,1,0,0,0,12,59,1,0,0,0,14,16,3,2,1,0,15,14,1,0,
         0,0,16,17,1,0,0,0,17,15,1,0,0,0,17,18,1,0,0,0,18,19,1,0,0,0,19,20,
         5,0,0,1,20,1,1,0,0,0,21,24,3,4,2,0,22,24,3,6,3,0,23,21,1,0,0,0,23,
-        22,1,0,0,0,24,3,1,0,0,0,25,26,5,13,0,0,26,27,5,8,0,0,27,28,3,10,
+        22,1,0,0,0,24,3,1,0,0,0,25,26,5,15,0,0,26,27,5,8,0,0,27,28,3,10,
         5,0,28,29,5,7,0,0,29,5,1,0,0,0,30,31,5,1,0,0,31,32,5,3,0,0,32,33,
         3,8,4,0,33,34,5,4,0,0,34,38,5,5,0,0,35,37,3,2,1,0,36,35,1,0,0,0,
         37,40,1,0,0,0,38,36,1,0,0,0,38,39,1,0,0,0,39,41,1,0,0,0,40,38,1,
@@ -42,11 +42,12 @@ class IfElseLangParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "'if'", "'else'", "'('", "')'", "'{'", 
-                     "'}'", "';'", "'='", "'<'", "'>='", "'<='", "'!='" ]
+                     "'}'", "';'", "'='", "'>'", "'=='", "'<'", "'>='", 
+                     "'<='", "'!='" ]
 
     symbolicNames = [ "<INVALID>", "IF", "ELSE", "LPAREN", "RPAREN", "LBRACE", 
-                      "RBRACE", "SEMI", "ASSIGN", "LT", "GE", "LE", "NE", 
-                      "ID", "NUMBER", "WS" ]
+                      "RBRACE", "SEMI", "ASSIGN", "GT", "EQ", "LT", "GE", 
+                      "LE", "NE", "ID", "NUMBER", "WS" ]
 
     RULE_program = 0
     RULE_statement = 1
@@ -68,13 +69,15 @@ class IfElseLangParser ( Parser ):
     RBRACE=6
     SEMI=7
     ASSIGN=8
-    LT=9
-    GE=10
-    LE=11
-    NE=12
-    ID=13
-    NUMBER=14
-    WS=15
+    GT=9
+    EQ=10
+    LT=11
+    GE=12
+    LE=13
+    NE=14
+    ID=15
+    NUMBER=16
+    WS=17
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -132,7 +135,7 @@ class IfElseLangParser ( Parser ):
                 self.state = 17 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==1 or _la==13):
+                if not (_la==1 or _la==15):
                     break
 
             self.state = 19
@@ -183,7 +186,7 @@ class IfElseLangParser ( Parser ):
             self.state = 23
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [13]:
+            if token in [15]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 21
                 self.assignment()
@@ -338,7 +341,7 @@ class IfElseLangParser ( Parser ):
             self.state = 38
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==1 or _la==13:
+            while _la==1 or _la==15:
                 self.state = 35
                 self.statement()
                 self.state = 40
@@ -358,7 +361,7 @@ class IfElseLangParser ( Parser ):
                 self.state = 47
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==1 or _la==13:
+                while _la==1 or _la==15:
                     self.state = 44
                     self.statement()
                     self.state = 49
@@ -467,7 +470,7 @@ class IfElseLangParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 57
             _la = self._input.LA(1)
-            if not(_la==13 or _la==14):
+            if not(_la==15 or _la==16):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -487,6 +490,12 @@ class IfElseLangParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+
+        def GT(self):
+            return self.getToken(IfElseLangParser.GT, 0)
+
+        def EQ(self):
+            return self.getToken(IfElseLangParser.EQ, 0)
 
         def LT(self):
             return self.getToken(IfElseLangParser.LT, 0)
@@ -523,7 +532,7 @@ class IfElseLangParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 59
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 7680) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 32256) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
